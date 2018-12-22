@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="抽象类,接口,内部类,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="在前面的例子中，我们编写的每一个类都定义了相关的方法，这些方法都有具体的方法体来描述这个类的某种行为。但是在某些特殊情况下，某个父类只是确定子类应该包含哪些方法，却不知道子类的具体实现，就引入的抽象类……">
+<meta name="keywords" content="抽象类,接口,内部类">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Chapter5.7 抽象类、接口和内部类">
+<meta property="og:url" content="http://yoursite.com/2018/12/21/JavaSE/Chapter5 面向对象/07、抽象类、接口和内部类/index.html">
+<meta property="og:site_name" content="HOU">
+<meta property="og:description" content="在前面的例子中，我们编写的每一个类都定义了相关的方法，这些方法都有具体的方法体来描述这个类的某种行为。但是在某些特殊情况下，某个父类只是确定子类应该包含哪些方法，却不知道子类的具体实现，就引入的抽象类……">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-12-22T12:26:46.679Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Chapter5.7 抽象类、接口和内部类">
+<meta name="twitter:description" content="在前面的例子中，我们编写的每一个类都定义了相关的方法，这些方法都有具体的方法体来描述这个类的某种行为。但是在某些特殊情况下，某个父类只是确定子类应该包含哪些方法，却不知道子类的具体实现，就引入的抽象类……">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/12/21/JavaSE/Chapter5 面向对象/07、抽象类、接口和内部类/">
+
+
+
+
+
+  <title>Chapter5.7 抽象类、接口和内部类 | HOU</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">HOU</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">取法于上，仅得为中，取法于中，故为其下！</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/21/JavaSE/Chapter5 面向对象/07、抽象类、接口和内部类/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="HOU">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="HOU">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Chapter5.7 抽象类、接口和内部类</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-21T22:26:55+08:00">
+                2018-12-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index">
+                    <span itemprop="name">java</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/JavaSE阶段知识/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaSE阶段知识</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/JavaSE阶段知识/Chapter5-面向对象/" itemprop="url" rel="index">
+                    <span itemprop="name">Chapter5 面向对象</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>在前面的例子中，我们编写的每一个类都定义了相关的方法，这些方法都有具体的方法体来描述这个类的某种行为。但是在某些特殊情况下，某个父类只是确定子类应该包含哪些方法，却不知道子类的具体实现，就引入的抽象类……</p>
+<a id="more"></a>
+<h2 id="7、抽象类、接口和内部类"><a href="#7、抽象类、接口和内部类" class="headerlink" title="7、抽象类、接口和内部类"></a>7、抽象类、接口和内部类</h2><p>在前面的例子中，我们编写的每一个类都定义了相关的方法，这些方法都有具体的方法体来描述这个类的某种行为。但是在某些特殊情况下，某个父类只是确定子类应该包含哪些方法，却不知道子类的具体实现，就引入的抽象类。举例来说，编写一个Shape类表示形状，这个类提供了计算面积和周长的两个方法，但是不同的子类例如圆、三角形、长方形的周长和面积的计算方式都不一样，要满足这样一个场景，就可以提供抽象方法，只有方法名，没有具体实现的方法。</p>
+<h4 id="抽象类"><a href="#抽象类" class="headerlink" title="抽象类"></a>抽象类</h4><p>抽象类就是用abstract关键字修饰的类，它是一种特殊的类，抽象方法同样也是用abstract修饰，看下实例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Shape</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Shape</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"构造方法"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//计算周长</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">double</span> <span class="title">calPerimeter</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//计算面积</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">double</span> <span class="title">calArea</span><span class="params">()</span></span>;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">color</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"打印颜色的普通方法"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们定义了一个Shape类，用abstract修饰，提供了构造器，并且提供了计算面积和周长的两个抽象方法，还有一个打印颜色的普通方法。抽象方法的定义中是不能包含{}的，就算没有方法体，下面定义一个类Circle继承Shape看一下用法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Circle</span> <span class="keyword">extends</span> <span class="title">Shape</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">double</span> r;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Circle</span><span class="params">(<span class="keyword">double</span> r)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.r = r;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Circle</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">calPerimeter</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">double</span> perimeter = <span class="number">2</span> * Math.PI * r;</span><br><span class="line">        System.out.println(<span class="string">"半径为"</span> + r + <span class="string">"的圆周长 = "</span> + perimeter);</span><br><span class="line">        <span class="keyword">return</span> perimeter;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">calArea</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">double</span> area = Math.PI * Math.pow(r, <span class="number">2</span>);</span><br><span class="line">        System.out.println(<span class="string">"半径为"</span> + r + <span class="string">"的圆面积 = "</span> + area);</span><br><span class="line">        <span class="keyword">return</span> area;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Circle circle = <span class="keyword">new</span> Circle(<span class="number">3</span>);</span><br><span class="line">        circle.calPerimeter();</span><br><span class="line">        circle.calArea();</span><br><span class="line"></span><br><span class="line">        Shape shape = <span class="keyword">new</span> Circle();</span><br><span class="line">        shape.color();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行main方法后输出结果：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">构造方法</span><br><span class="line">半径为<span class="number">3.0</span>的圆周长 = <span class="number">18.84955592153876</span></span><br><span class="line">半径为<span class="number">3.0</span>的圆面积 = <span class="number">28.274333882308138</span></span><br><span class="line">构造方法</span><br><span class="line">打印颜色的普通方法</span><br></pre></td></tr></table></figure>
+<p>Circle类很简单，定义了属性半径，并具体实现了Shape类中两个抽象方法，抽象类有自己的构造器但是不能用new去实例出一个对象，构造器主要用来被子类调用。一个抽象类有这样一些规则：</p>
+<ul>
+<li>抽象类中可以拥有抽象方法和普通方法；</li>
+<li>有抽象方法的类一定是抽象类；</li>
+<li>抽象类不能像普通类一样用new关键字去创建实例，只能当做父类被继承。</li>
+<li>多态很灵活很好用。</li>
+</ul>
+<p>抽象类的用法总体来说是比较简单的，但是其中的思想可能会要在实践中才能体会，作为一个抽象类，在实际的项目中，应该是作为构架一级的存在，制定某些规则由子类去实现，就像一个公司的构架中，有老板，经理和员工，员工来执行事务，经理可以对事务进行管理，但是没必要具体去做，当然经理也有老板交代的事只能自己去完成，这里制定和管理事务就类似抽象方法、具体要做的事就是抽象类中的普通方法了，那么老板呢？假设一个老板主要是制定规则，所有的事都是手底下的人去完成，他不需要自己去做，那么，老板就是我们即将要拿出来的概念——接口。</p>
+<h4 id="接口"><a href="#接口" class="headerlink" title="接口"></a>接口</h4><p>不同于类定义，接口使用class，而是用interface关键字定义接口，但是接口的访问修饰符只有两种：public或者default（默认），接口名的定义遵循类名定义规则，接口名首字母大写，多个单词首字母都大写的驼峰式命名。从上面对抽象类的说明，我们知道接口也是一种规范，所以，接口中是不包含构造器和初始化块，一个接口中可以包含成员变量（只能是静态常量）、方法（抽象方法、类方法或默认方法）、内部类（内部接口、枚举）定义。</p>
+<p>我们知道接口中定义的是多个类共同的行为规范，因此，接口中所有成员都应该是public访问权限。定义接口中的成员可以省略public，如果要指定，就只能是public访问控制修饰符。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Boss</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> ID = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">setWork</span><span class="params">(String msg)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">eat</span> <span class="params">(String food)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"午餐是："</span> + food);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面实例的接口中，定义了成员变量、普通方法和类方法，成员变量的定义必须要赋予初始值，否则编译错误，我们知道final的变量都是要赋予初始值的，在接口中定义成员变量，默认使用public static final 修饰的，不写的话系统默认提供。下面一个普通方法，本质就是abstract修饰的一个抽象方法，所以没有方法体。此外还有一个static修饰的类方法，此方法可用使用接口名直接调用。事实上，在实际的项目中，接口中我们一般会定义一些相关类共同使用的常量由接口直接调用，和一些普通方法供实现类重写，很少在接口中写一个具体的方法，这与我们的初衷有悖。</p>
+<p>说到接口是用来定义规则的，那么定义了规则就要有具体的类去实现，接口不同于类的继承，接口的复用我们称为实现，使用implements关键字，而且接口是可以多实现的，也就是说一个普通的类可以同时实现多个接口，而类继承只能是单继承，一个类同一时间只能继承一个父类。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Product</span> <span class="keyword">extends</span> <span class="title">Boss</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">getCount</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestImpl</span> <span class="keyword">implements</span> <span class="title">Boss</span>, <span class="title">Product</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setWork</span><span class="params">(String msg)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getCount</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>总得来说要注意的点是：</p>
+<ul>
+<li>类实现接口使用implements关键字，普通类继承父类、接口继承接口使用extends关键字；</li>
+<li>implements后面可以跟多个接口用“，”分割，extends后面只能继承一个类；</li>
+<li>接口没有构造方法，不能被实例化，主要用来定义通用规则，要灵活使用多态创建对象。</li>
+<li>接口中定义的方法默认使用public修饰，成员变量默认使用public static final修饰。</li>
+</ul>
+<p>从这里我们也可以看出接口和抽象类最大的区别，当然接口的实际应用是很广的，后面还会大量用到。</p>
+<h4 id="内部类"><a href="#内部类" class="headerlink" title="内部类"></a>内部类</h4><p>内部类，顾名思义就是定义在一个类内部的类，为什么要使用内部类呢？</p>
+<ul>
+<li>内部类在程序中实现了更深一层的封装，内部类可以访问外部类的私有数据，但是外部类不能访问内部类的实现细节；</li>
+<li>内部类离开了当前外部类是没有任何意义的，只作用于当前类；</li>
+</ul>
+<p>看一下内部类的主要分类，从其中体会作用：</p>
+<p><strong>非静态内部类：</strong></p>
+<p>前面我们说过静态和非静态，也就是static修饰符的作用，非静态内部类就是在类内部定义的普通类，如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">InnerClass</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> id;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        ClassA classA = <span class="keyword">new</span> ClassA();</span><br><span class="line">        classA.innerMethod(<span class="number">01</span>, <span class="string">"内部类"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="class"><span class="keyword">class</span> <span class="title">ClassA</span> </span>&#123;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">innerMethod</span><span class="params">(<span class="keyword">int</span> id, String name)</span> </span>&#123;</span><br><span class="line">            System.out.println(id + <span class="string">"_"</span> + name);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        InnerClass innerClass = <span class="keyword">new</span> InnerClass();</span><br><span class="line">        innerClass.test();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可以看到，内部类的使用方法和普通类其实是一样的，需要注意的是，我们有时候会见到一个java文件中有多个类，但是它们都是独立存在的，这中写法不能叫做内部类，只有定义在一个类的范围之内才是。</p>
+<p>上面的实例中，我们在一个public类中定义了一个private修饰的类，内部类作为一个成员，自然可以使用public、private、protected和static修饰，外部类是不可以的。此外需要注意的一个细节是：一个普通的java文件中，有且只有一个public修饰的类，且这个类名要作为文件名存在，这个规则是正确的，但要注意和内部类的概念区分开。</p>
+<p><strong>静态内部类</strong></p>
+<p>所谓静态，自然就是static修饰，这样的类叫做静态内部类。既然是static修饰的，它就属于当前类本身，而不是当前外部类的某一个对象。不同于普通的非静态内部类，静态内部类中是可以包含静态成员也可以包含非静态成员的。我们知道静态成员是不能访问非静态成员的，所以静态内部类不能访问外部类的实例成员，只能访问外部类的静态成员。至于说到类的访问修饰符，参照前面<a href="3、封装.md">封装</a>中说到的细节，大同小异。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">ClassB</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">staticInnerMethod</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"静态内部类"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">staticInnerMethodB</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="comment">// test(); //编译失败，静态内部类不能访问外部类普通方法</span></span><br><span class="line">        testForStatic();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>此外，接口中也可以定义内部类，且默认使用public static修饰，也就是说接口中定义的内部类只能是静态内部类。</p>
+<p><strong>局部内部类</strong></p>
+<p>这个局部内部类不同于前面说的两种类型，它是在方法中定义的内部类，因为这种内部类只作用于当前方法，所以局部内部类不能使用访问控制符和static修饰，实际开发中真没见过这种写法，此处略过。</p>
+<p><strong>匿名内部类</strong></p>
+<p>我们先以一个实例演示：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">NoneNameInnerClass</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">(Product product)</span> </span>&#123;</span><br><span class="line">        product.getCount();</span><br><span class="line">        System.out.println(<span class="string">"普通方法"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        NoneNameInnerClass innerClass = <span class="keyword">new</span> NoneNameInnerClass();</span><br><span class="line">        <span class="comment">//匿名内部类</span></span><br><span class="line">        innerClass.test(<span class="keyword">new</span> Product() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">getCount</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                System.out.println(<span class="string">"重写接口方法"</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">Product</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">getCount</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>匿名内部类的使用有规则制约;</p>
+<ul>
+<li>创建匿名内部类时会立即创建对象，所以匿名内部类不能使抽象类；</li>
+<li>匿名内部类必须继承一个父类或者实现一个接口，但最多也只能实现一个接口；</li>
+<li>匿名内部类不能定义构造器，但是可以定义初始化块。</li>
+</ul>
+<p>在实际开发中，内部类这一部分相对较少，其使用也是扩展自原有知识，写的不够清晰，后面用到再补回来。</p>
+<p><a href="https://github.com/wmhou/java_blog/tree/master/JavaSE/JavaCode/src/com/wmhou/chapter5/abstractclass" target="_blank" rel="noopener">本节代码路径_抽象类</a></p>
+<p><a href="https://github.com/wmhou/java_blog/tree/master/JavaSE/JavaCode/src/com/wmhou/chapter5/interfacedemo" target="_blank" rel="noopener">本节代码路径_接口</a></p>
+<p><a href="https://github.com/wmhou/java_blog/tree/master/JavaSE/JavaCode/src/com/wmhou/chapter5/innerclassdemo" target="_blank" rel="noopener">本节代码路径_内部类</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/抽象类/" rel="tag"><i class="fa fa-tag"></i> 抽象类</a>
+          
+            <a href="/tags/接口/" rel="tag"><i class="fa fa-tag"></i> 接口</a>
+          
+            <a href="/tags/内部类/" rel="tag"><i class="fa fa-tag"></i> 内部类</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/21/JavaSE/Chapter6 集合/1、集合框架概述/" rel="next" title="Chapter6.1 集合框架概述">
+                <i class="fa fa-chevron-left"></i> Chapter6.1 集合框架概述
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/12/21/JavaSE/Chapter5 面向对象/06、static和final关键字/" rel="prev" title="Chapter5.6 static和final修饰符">
+                Chapter5.6 static和final修饰符 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">HOU</p>
+              <p class="site-description motion-element" itemprop="description">记录从Hello World开始的点点滴滴，人生中总会遇到形形色色的人和事，且行且珍惜！</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/wmhou" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:wm_hou@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#7、抽象类、接口和内部类"><span class="nav-number">1.</span> <span class="nav-text">7、抽象类、接口和内部类</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#抽象类"><span class="nav-number">1.0.1.</span> <span class="nav-text">抽象类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#接口"><span class="nav-number">1.0.2.</span> <span class="nav-text">接口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#内部类"><span class="nav-number">1.0.3.</span> <span class="nav-text">内部类</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">HOU</span>
+
+  
+</div>
+
+  <!-- 
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+-->
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

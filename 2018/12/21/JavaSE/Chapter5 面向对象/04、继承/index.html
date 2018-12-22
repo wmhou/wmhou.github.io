@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="继承,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="继承，面向对象语言的三大基本特征之一，实现软件复用的重要操作，通过extends关键字实现，例如猫类继承动物类，苹果类继承水果类，实现继承的类叫做子类，被继承的类叫做父类或者基类……">
+<meta name="keywords" content="继承">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Chapter5.4 继承">
+<meta property="og:url" content="http://yoursite.com/2018/12/21/JavaSE/Chapter5 面向对象/04、继承/index.html">
+<meta property="og:site_name" content="HOU">
+<meta property="og:description" content="继承，面向对象语言的三大基本特征之一，实现软件复用的重要操作，通过extends关键字实现，例如猫类继承动物类，苹果类继承水果类，实现继承的类叫做子类，被继承的类叫做父类或者基类……">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-12-22T12:26:35.032Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Chapter5.4 继承">
+<meta name="twitter:description" content="继承，面向对象语言的三大基本特征之一，实现软件复用的重要操作，通过extends关键字实现，例如猫类继承动物类，苹果类继承水果类，实现继承的类叫做子类，被继承的类叫做父类或者基类……">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/12/21/JavaSE/Chapter5 面向对象/04、继承/">
+
+
+
+
+
+  <title>Chapter5.4 继承 | HOU</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">HOU</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">取法于上，仅得为中，取法于中，故为其下！</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/21/JavaSE/Chapter5 面向对象/04、继承/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="HOU">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="HOU">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Chapter5.4 继承</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-21T22:26:55+08:00">
+                2018-12-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index">
+                    <span itemprop="name">java</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/JavaSE阶段知识/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaSE阶段知识</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/JavaSE阶段知识/Chapter5-面向对象/" itemprop="url" rel="index">
+                    <span itemprop="name">Chapter5 面向对象</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>继承，面向对象语言的三大基本特征之一，实现软件复用的重要操作，通过<strong>extends</strong>关键字实现，例如猫类继承动物类，苹果类继承水果类，实现继承的类叫做子类，被继承的类叫做父类或者基类……</p>
+<a id="more"></a>
+<h2 id="4、继承"><a href="#4、继承" class="headerlink" title="4、继承"></a>4、继承</h2><h4 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h4><p>继承，面向对象语言的三大基本特征，实现软件复用的重要操作，通过<strong>extends</strong>关键字实现，例如猫类继承动物类，苹果类继承水果类，实现继承的类叫做子类，被继承的类叫做父类或者基类。举例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Birds</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String color;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">view</span><span class="params">(String color)</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"color："</span>+ color);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Ostrich</span> <span class="keyword">extends</span> <span class="title">Birds</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        Ostrich ostrich = <span class="keyword">new</span> Ostrich();</span><br><span class="line">        ostrich.view(<span class="string">"黑色"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面的实例中我们先写了一个Birds作为父类，定义了一个属性color，一个view方法打印颜色，用一个Ostrich类继承Birds，Ostrich类就拥有了父类的方法，创建Ostrich对象就可以调用父类的方法，但是Ostrich对象并不能直接访问父类的私有属性，上面程序输出：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">color：黑色</span><br></pre></td></tr></table></figure>
+<p>可是，为什么要用继承呢？这样的方法自己写了不是更好？</p>
+<p>在上面的实例中，鸟类涵盖范围太大了，从麻雀到老鹰，从候鸟到留鸟，大部分的鸟类都会飞，但是飞的行为却不一样，所有的鸟类都要吃东西，但是有的食草有的食肉，还有各种各样的颜色。如果每一种鸟都去定义这样的方法，势必对出现大量重复的代码，所以才将共性的部分提取出来作为父类，事实上很多的继承并不是一开始就这么制定了，而是在优化的过程中不断抽取重复代码才出现的。</p>
+<p>继承主要有以下特性：</p>
+<ul>
+<li>子类拥有父类非private的方法和属性；</li>
+<li>子类可以拥有自己独立的方法和属性，也就是子类的可扩展性；</li>
+<li>子类可以重写父类的方法；</li>
+<li>java中的继承是单继承，也就是说一个父类可以有多个子类，但是一个子类只能继承于一个父类，如果我们要实现多重继承，就可以构造多个类，类A继承类B，类B继承类C。</li>
+</ul>
+<h4 id="方法重写："><a href="#方法重写：" class="headerlink" title="方法重写："></a>方法重写：</h4><p>上面的例子中，鸵鸟类集成了鸟类，有了显示颜色的方法，鸟类会飞翔，但是鸵鸟并不会飞翔，所以鸵鸟要去重写飞翔的方法实现自己的逻辑，修改如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Birds</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String color;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">view</span><span class="params">(String color)</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"color："</span>+ color);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">fly</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"鸟儿会飞。。。"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Ostrich</span> <span class="keyword">extends</span> <span class="title">Birds</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">fly</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"鸵鸟会跑不会飞。。。"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        Ostrich ostrich = <span class="keyword">new</span> Ostrich();</span><br><span class="line">        ostrich.view(<span class="string">"黑色"</span>);</span><br><span class="line">        ostrich.fly();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面的例子中，如果子类没有重写fly方法，那么Ostrich的对象调用fly方法就会打印：鸟儿会飞，显然是不合逻辑的，而重写了这个方法之后，再去调用fly方法就是自己的实现了，打印出：鸵鸟会跑不会飞。一般我们会在重写的方法上一行写上@override标签来表示这是一个重写的方法，需要注意重写和重载的不同之处。</p>
+<h4 id="super关键字和构造方法调用："><a href="#super关键字和构造方法调用：" class="headerlink" title="super关键字和构造方法调用："></a>super关键字和构造方法调用：</h4><p>super关键字和this关键字很相似，不过super指向的是父类的对象，this指向的是当前类的对象，同样的super也不能出现在static修饰的方法中，实例如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">fly</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.view(<span class="string">"鸵鸟颜色白加黑"</span>);</span><br><span class="line">        System.out.println(<span class="string">"鸵鸟会跑不会飞。。。"</span>);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>在fly方法中使用super调用的是父类的方法，super表示父类的对象。这里使用的super实际上是调用了父类无参的构造器，而且在默认情况下也是调用父类无参的构造器。但如果我们想用super去调用父类声明的有参构造方法呢？</p>
+<p>重新写一个实例，我们知道构造方法是用来初始化一个对象的，来看一下子类是怎么执行父类的构造方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Employee</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String id;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> String department;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Employee</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"父类无参的构造方法"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Employee</span><span class="params">(String id, String name, String department)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.id = id;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">        <span class="keyword">this</span>.department = department;</span><br><span class="line">        System.out.println(<span class="string">"父类有参的构造方法"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Manager</span> <span class="keyword">extends</span> <span class="title">Employee</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">double</span> reward;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Manager</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>(<span class="number">2000</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Manager</span><span class="params">(<span class="keyword">double</span> reward)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.reward = reward;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Manager</span><span class="params">(String id, String name, String department, <span class="keyword">double</span> reward)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(id, name, department);</span><br><span class="line">        <span class="keyword">this</span>.reward = reward;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Manager managerA = <span class="keyword">new</span> Manager();</span><br><span class="line">        Manager managerB = <span class="keyword">new</span> Manager(<span class="number">20000</span>);</span><br><span class="line">        Manager managerC = <span class="keyword">new</span> Manager(<span class="string">"0002"</span>, <span class="string">"赵子龙"</span>, <span class="string">"集成工具部"</span>, <span class="number">30000</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>看一下这两个类，父类是雇员类，子类是经理类，这里同样也可以再说明一下什么时候使用继承，我们在处理两个对象时，如果有“is-a”的关系，就可以使用继承，比如上面的实例中，经理作为公司管理人员，在项目结束时会拿到奖金，而普通员工并没有，但同时经理也隶属于公司，同样作为雇员存在，所以可以用继承减少相同代码，去进行自己功能的扩展，同样作为雇员，人事、行政、技术、销售等各个岗位都会有自己的特性，各个岗位又有共性，此时就可以用继承来实现。</p>
+<p>继续说到构造方法，上面的实例中，运行main()方法会输出如下结果：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">父类无参的构造方法</span><br><span class="line">父类无参的构造方法</span><br><span class="line">父类有参的构造方法</span><br></pre></td></tr></table></figure>
+<p>我们对子类构造了三个不同的对象，分别使用子类无参、有参构造器和super调用父类构造器，可以看到，不管是否使用super关键字，每一个对象的创建都会先去调用父类中的构造方法一次，总结一下：</p>
+<ul>
+<li>如果子类构造器既没有super也没有this，则默认执行子类构造器前先执行父类无参构造器；</li>
+<li>如果子类构造器使用this调用子类另一个重载的构造器，系统会根据传入的实参去掉用对应的构造器，执行该构造器之前又会先去调用父类无参构造器；</li>
+<li>如果子类构造器第一行使用super调用父类构造器，系统会根据实参调用对应的父类构造器。</li>
+</ul>
+<p>需要注意的是：this和super对构造器的调用都在代码第一行，所以它们不能同时出现。 </p>
+<h4 id="Object类"><a href="#Object类" class="headerlink" title="Object类"></a>Object类</h4><p>在前面的例子中，我们构造的普通java类中有重写toString、hashCode和equals方法，然而我们并没有使用extends关键字去集成任何一个类，那么怎么会有这些重写的方法呢？原因很简单，Java中定义了一个Object类，这个类是所有类的超类，也就是说每一个类都是由它扩展而来，默认每一个类都继承这个类，但是并不需要显式指定。结合前面构造方法的调用，我们初始化一个子类会先去调用父类的构造方法，Object类就是最顶层的父类。既然是作为最顶级的父类，那就一定提供了一些所有类通用的方法，下面看几个常用的方法：</p>
+<ul>
+<li><p><strong>equals()方法：</strong>用来判断两个对象的内容是否相同，还记得前面说<a href="https://github.com/wmhou/java_blog/blob/master/JavaSE/Chapter2%20%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/3%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6.md" target="_blank" rel="noopener">比较运算符</a>说到的==吗，==在引用数据类型中比较的是对象的引用。先看一段代码，再讨论一下这二者之间的区别：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">EqualTest</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> id;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">EqualTest</span><span class="params">(<span class="keyword">int</span> id)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.id = id;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        EqualTest e1 = <span class="keyword">new</span> EqualTest(<span class="number">1</span>);</span><br><span class="line">        EqualTest e2 = <span class="keyword">new</span> EqualTest(<span class="number">1</span>);</span><br><span class="line">        System.out.println(e1.equals(e2));</span><br><span class="line">        System.out.println(e1 == e2);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这个实例的输出结果是：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">false</span></span><br><span class="line"><span class="keyword">false</span></span><br></pre></td></tr></table></figure>
+<p>很奇怪是不是，对于”==”运算符比较两个EqualsTest对象返回false，我们明白这点，因为e1和e2分别指向不同的对象，所以二者内存地址是不相同的。但是equals()方法呢？我们前面说比较的是内容，也就是说上例中拥有相同id的情况下我们认为两个对象是相等的，却返回了false。原因就是我们使用equals方法的时候没有去重写，所以此时调用的是Object类的equals()方法，这个原始方法内部的实现其实就是”==”，，看一下源码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object obj)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (<span class="keyword">this</span> == obj);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>所以，为了达到我们的期望值，就要重写equals()方法，让对象之间的比较按照我们需要的逻辑去比较内容，而不是内存地址，重写如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object o)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (o <span class="keyword">instanceof</span> EqualTest) &#123;</span><br><span class="line">        EqualTest test = (EqualTest) o;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.id == test.id;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>再次运行，我们发现输出的结果就满足我们的预期了：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">true</span></span><br><span class="line"><span class="keyword">false</span></span><br></pre></td></tr></table></figure>
+<p>上面重写的方法中用到了instanceof关键字，它可以用来判断某对象所指向的类型，判断返回boolean值，在上面的例子中传入的对象是EqualsTest类型，然后去比较id，也就是内容，返回比较的结果。</p>
+</li>
+<li><p><strong>hashCode()方法：</strong></p>
+<p>一般要求在重写equals()方法的同时也重写hashCode()方法，该方法返回一个对象的哈希值，后面再说。</p>
+</li>
+<li><p><strong>toString()方法：</strong></p>
+<p>该方法主要用来返回当前对象的字符串表达式，继续在上面的例子中重写如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"EqualTest&#123;"</span> + <span class="string">"id="</span> + id + <span class="string">"&#125;"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>打印该对象输出：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EqualTest&#123;id=<span class="number">1</span>&#125;</span><br></pre></td></tr></table></figure>
+<p>如果不去重写toString()方法，那么打印对象会输出如下结果（类名+@+hashCode）：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">com.wmhou.chapter5.extendstest.EqualTest@<span class="number">1540e19</span>d</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>线程同步相关方法：</strong></p>
+<p>wait()、notify()、notifyAll()方法，这几个方法在后面章节线程中会详细说明。</p>
+</li>
+<li><p><strong>getClass()方法：</strong></p>
+<p>该方法会返回一个对象的类对象，关于这个方法会在后面章节反射机制中说明。​</p>
+</li>
+</ul>
+<p><a href="https://github.com/wmhou/java_blog/tree/master/JavaSE/JavaCode/src/com/wmhou/chapter5/extendstest" target="_blank" rel="noopener">本节代码路径</a></p>
+<p><a href="05、多态.md">下篇——Chapter5：05、多态</a> </p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/继承/" rel="tag"><i class="fa fa-tag"></i> 继承</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/21/JavaSE/Chapter5 面向对象/06、static和final关键字/" rel="next" title="Chapter5.6 static和final修饰符">
+                <i class="fa fa-chevron-left"></i> Chapter5.6 static和final修饰符
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/12/21/JavaSE/Chapter5 面向对象/09、枚举/" rel="prev" title="Chapter5.9 枚举">
+                Chapter5.9 枚举 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">HOU</p>
+              <p class="site-description motion-element" itemprop="description">记录从Hello World开始的点点滴滴，人生中总会遇到形形色色的人和事，且行且珍惜！</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/wmhou" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:wm_hou@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#4、继承"><span class="nav-number">1.</span> <span class="nav-text">4、继承</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#继承"><span class="nav-number">1.0.1.</span> <span class="nav-text">继承</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#方法重写："><span class="nav-number">1.0.2.</span> <span class="nav-text">方法重写：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#super关键字和构造方法调用："><span class="nav-number">1.0.3.</span> <span class="nav-text">super关键字和构造方法调用：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Object类"><span class="nav-number">1.0.4.</span> <span class="nav-text">Object类</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">HOU</span>
+
+  
+</div>
+
+  <!-- 
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+-->
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
