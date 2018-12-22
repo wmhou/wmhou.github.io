@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="方法,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="在前面的内容中我们一直有用到过方法，比如main()方法、输出打印的out()方法，那么到底什么是方法呢？在Java中，方法的定义是：包含于类或对象中的用于执行某种特定功能的代码……">
+<meta name="keywords" content="方法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Chapter5.2 方法">
+<meta property="og:url" content="http://yoursite.com/2018/12/13/JavaSE/Chapter5 面向对象/02、方法/index.html">
+<meta property="og:site_name" content="HOU">
+<meta property="og:description" content="在前面的内容中我们一直有用到过方法，比如main()方法、输出打印的out()方法，那么到底什么是方法呢？在Java中，方法的定义是：包含于类或对象中的用于执行某种特定功能的代码……">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-12-22T14:42:51.520Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Chapter5.2 方法">
+<meta name="twitter:description" content="在前面的内容中我们一直有用到过方法，比如main()方法、输出打印的out()方法，那么到底什么是方法呢？在Java中，方法的定义是：包含于类或对象中的用于执行某种特定功能的代码……">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/12/13/JavaSE/Chapter5 面向对象/02、方法/">
+
+
+
+
+
+  <title>Chapter5.2 方法 | HOU</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">HOU</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">取法于上，仅得为中，取法于中，故为其下！</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/13/JavaSE/Chapter5 面向对象/02、方法/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="HOU">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="HOU">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Chapter5.2 方法</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-13T22:00:00+08:00">
+                2018-12-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index">
+                    <span itemprop="name">java</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/JavaSE阶段知识/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaSE阶段知识</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/JavaSE阶段知识/Chapter5-面向对象/" itemprop="url" rel="index">
+                    <span itemprop="name">Chapter5 面向对象</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>在前面的内容中我们一直有用到过方法，比如main()方法、输出打印的out()方法，那么到底什么是方法呢？在Java中，方法的定义是：包含于类或对象中的用于执行某种特定功能的代码……</p>
+<a id="more"></a>
+<h2 id="2、方法"><a href="#2、方法" class="headerlink" title="2、方法"></a>2、方法</h2><p>在前面的内容中我们一直有用到过方法，比如main()方法、输出打印的out()方法，那么到底什么是方法呢？</p>
+<p>在Java中，方法的定义是：包含于类或对象中的用于执行某种特定功能的代码，方法不能独立定义，只能在类中，由类或者所属类的对象调用执行。我们之前说过static修饰的方法可以用类名直接调用，当然也可以用这个类的对象调用，如果参数相同还是可以得到相同的执行结果，如果没有static修饰，就只能由对象调用。</p>
+<h4 id="命名规则："><a href="#命名规则：" class="headerlink" title="命名规则："></a>命名规则：</h4><p>方法的命名不同于类，一般我们使用首字母小写后面单词以大写字母开头的形式，例如：addStudent；</p>
+<h4 id="方法定义和重载："><a href="#方法定义和重载：" class="headerlink" title="方法定义和重载："></a>方法定义和重载：</h4><p>前面我们已经定义过方法，知道一个方法的基本组成是：访问修饰符（可选）、返回值类型、方法名、形参和方法体这些基本元素构成，那么如何使用呢？</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MethodTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//属性：id</span></span><br><span class="line">    <span class="keyword">int</span> id;</span><br><span class="line">    <span class="comment">//属性：name</span></span><br><span class="line">    String name;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//有参构造方法</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">MethodTest</span><span class="params">(<span class="keyword">int</span> id, String name)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.id = id;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//无参构造方法</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">MethodTest</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//方法1：没有形参</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">exec</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"没有形参的方法：id = "</span> + id + <span class="string">"; name = "</span> + name);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//方法2：有形参</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">exec</span><span class="params">(<span class="keyword">int</span> id, String name)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"有形参的方法：id = "</span> + id + <span class="string">"; name = "</span> + name);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//方法3：形参为引用类型</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">exec</span><span class="params">(MethodTest test)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"形参为对象的方法：id = "</span> + test.id + <span class="string">"; name = "</span> + test.name);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//方法4：有返回值方法</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">exec</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"有返回值的方法：name = "</span> + name);</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"SUCCESS"</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//主方法，程序入口</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        MethodTest test1 = <span class="keyword">new</span> MethodTest(<span class="number">2</span>, <span class="string">"方法2"</span>);</span><br><span class="line">        test1.exec();</span><br><span class="line"></span><br><span class="line">        MethodTest test2 = <span class="keyword">new</span> MethodTest();</span><br><span class="line">        test2.exec(<span class="number">1</span>, <span class="string">"方法1"</span>);</span><br><span class="line"></span><br><span class="line">        test1.exec(test1);</span><br><span class="line">        test1.exec(test2);</span><br><span class="line">        test2.exec(test1);</span><br><span class="line">        test2.exec(test2);</span><br><span class="line"></span><br><span class="line">        String str1 = test1.exec(<span class="string">"方法4"</span>);</span><br><span class="line">        System.out.println(str1);</span><br><span class="line"></span><br><span class="line">        String str2 = test2.exec(<span class="string">"方法4"</span>);</span><br><span class="line">        System.out.println(str2);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>看下这个实例：</p>
+<ul>
+<li>定义了id和name两个属性；</li>
+<li>定义了有参和无参两个构造方法，构造方法名称和类名相同，叫做构造方法重载；</li>
+<li>定义了4个方法，方法名都是exec，分别为没有形参、有形参、形参为引用数据类型和一个有返回值的方法，这里叫做方法重载，对于重载方法而言，也就是在同一个类中，方法名相同，形参列表不同（类型、数量、顺序不同）的多个方法,，通过传入对应的参数执行对应的方法；</li>
+<li>定义了main()方法，也就是主方法、程序入口，创建了两个对象，去调用方法，执行得到如下结果：</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">没有形参的方法：id = <span class="number">2</span>; name = 方法</span><br><span class="line">有形参的方法：id = <span class="number">1</span>; name = 方法</span><br><span class="line">形参为对象的方法：id = <span class="number">2</span>; name = 方法</span><br><span class="line">形参为对象的方法：id = <span class="number">0</span>; name = <span class="keyword">null</span></span><br><span class="line">形参为对象的方法：id = <span class="number">2</span>; name = 方法</span><br><span class="line">形参为对象的方法：id = <span class="number">0</span>; name = <span class="keyword">null</span></span><br><span class="line">有返回值的方法：name = 方法</span><br><span class="line">SUCCESS</span><br><span class="line">有返回值的方法：name = 方法</span><br><span class="line">SUCCESS</span><br></pre></td></tr></table></figure>
+<h4 id="参数传递："><a href="#参数传递：" class="headerlink" title="参数传递："></a>参数传递：</h4><p>上面的实例中我们看到，方法是不能独立存在的，必须要在类中定义，如果要调用方法则需要类或者对象调用，如果方法包含了形参，那么调用这个方法的时候就需要给对应的形参传入指定参数值，这个参数值也被叫做实参。在Java中，参数传递只有一种：值传递。也就是说在参数传递的时候，实际传入的是实参的副本，不管方法内对传入的参数如何操作，都不会改变参数本身。</p>
+<p>上面的代码中，方法内的形参有基本数据类型和引用数据类型，说明方法的参数传递，不仅可以传入基本数据类型，也可以传入引用数据类型，基本数据类型我们之前说过，这一类型的定义和值都是存储在栈区，而引用数据类型的值是存储在堆内存中，通过引用使用，类似与结构化编程语言中的指针，通过上面的例子看一下需要注意的地方：</p>
+<ul>
+<li>使用方法必要要有类或者对象调用；</li>
+<li>根据调用方法指定的形参列表传入具体的参数值来使用重载方法；</li>
+<li>无返回值的方法直接使用，有返回值的方法需要指定对应返回值类型的变量接收返回参数</li>
+<li>重点看一下类类型传递，不管使用哪个对象调用方法，都需要传入实参才能使用方法，如果没有具体值，就会使用类型本身的默认值，引用类型默认值为null。</li>
+</ul>
+<h4 id="形参个数可变的方法："><a href="#形参个数可变的方法：" class="headerlink" title="形参个数可变的方法："></a>形参个数可变的方法：</h4><p>Java中还有一个功能，就是允许定义形参个数可变的参数，使用时可以接收多个参数值，看一下这个实例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MethodTest</span> </span>&#123;    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">exec</span><span class="params">(<span class="keyword">int</span> id, String... name)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"有返回值的方法：id = "</span> + id + <span class="string">" name = "</span> + Arrays.toString(name));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    	MethodTest test2 = <span class="keyword">new</span> MethodTest();</span><br><span class="line">      	test2.exec(<span class="number">3</span>, <span class="keyword">new</span> String[]&#123;<span class="string">"参数1"</span>, <span class="string">"参数2"</span>, <span class="string">"参数3"</span>&#125;);</span><br><span class="line">      	test2.exec(<span class="number">3</span>, <span class="string">"参数1"</span>, <span class="string">"参数2"</span>, <span class="string">"参数3"</span>);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>输出结果是一样的：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">有返回值的方法：id = <span class="number">3</span> name = [参数<span class="number">1</span>, 参数<span class="number">2</span>, 参数<span class="number">3</span>]</span><br></pre></td></tr></table></figure>
+<p> 形参个数可变方法，形参定义的时候在参数类型和变量名之间加…，使用的时候可以传入多个该类型的参数，实际上参数是以数组的形式存在，需要注意的是：</p>
+<ul>
+<li>数组形式的参数可以位于形参列表内任意位置，个数可变的参数只能位于列表最后；</li>
+<li>一个方法中有且只有一个个数可变的形参。</li>
+</ul>
+<p><a href="https://github.com/wmhou/java_blog/tree/master/JavaSE/JavaCode/src/com/wmhou/chapter5" target="_blank" rel="noopener">本节代码路径</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/方法/" rel="tag"><i class="fa fa-tag"></i> 方法</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/12/JavaSE/Chapter5 面向对象/01、类和对象/" rel="next" title="Chapter5.1 类和对象">
+                <i class="fa fa-chevron-left"></i> Chapter5.1 类和对象
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/12/14/JavaSE/Chapter5 面向对象/03、封装/" rel="prev" title="Chapter5.3 封装">
+                Chapter5.3 封装 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">HOU</p>
+              <p class="site-description motion-element" itemprop="description">记录从Hello World开始的点点滴滴，人生中总会遇到形形色色的人和事，且行且珍惜！</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/wmhou" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:wm_hou@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#2、方法"><span class="nav-number">1.</span> <span class="nav-text">2、方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#命名规则："><span class="nav-number">1.0.1.</span> <span class="nav-text">命名规则：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#方法定义和重载："><span class="nav-number">1.0.2.</span> <span class="nav-text">方法定义和重载：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#参数传递："><span class="nav-number">1.0.3.</span> <span class="nav-text">参数传递：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#形参个数可变的方法："><span class="nav-number">1.0.4.</span> <span class="nav-text">形参个数可变的方法：</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">HOU</span>
+
+  
+</div>
+
+  <!-- 
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+-->
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
